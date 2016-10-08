@@ -1,6 +1,6 @@
 import requests
 from datetime import datetime
-from decimal import Decimal
+from decimal import *
 from re import sub
 from bs4 import BeautifulSoup
 
@@ -28,7 +28,7 @@ def main():
     for cruise in cruises:
         date_string = cruise['date']
         date_object = datetime.strptime(date_string, '%b %d, %Y')
-        value = Decimal(sub(r'[^\d.]', '', cruise['price']))
+        value = int(Decimal(sub(r'[^\d.]', '', cruise['price'])))
         new_cruise = Cruise(date = date_object.date(),
                             line = cruise['line'],
                             ship = cruise['ship'],

@@ -14,7 +14,7 @@ class Cruise(Base):
     ship = Column(String(250))
     depart = Column(String(250))
     nights = Column(Integer)
-    price = Column(Numeric)
+    price = Column(Integer)
 
 engine = create_engine('sqlite:///curise.db')
 Base.metadata.create_all(engine)
