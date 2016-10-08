@@ -40,6 +40,18 @@ def get_cruises(url):
         get_cruise_data(cruise)
 
 def get_cruise_data(cruise):
+    """
+    col 1 = Data
+    col 2 = Cruise line
+    col 3 = Ship
+    col 5 = departs
+    col 6 = nights
+    col 7 = price
+    """
+    data_col = cruise.find_all('td')
+    for col in data_col:
+        print col.text
+    sys.exit(1)
     return cruise
 
 if __name__ == '__main__':
