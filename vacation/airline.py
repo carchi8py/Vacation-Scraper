@@ -26,14 +26,19 @@ def main():
     for url in urls:
         print url
         flights = get_flights(url, flights)
-        break
         sleep_time = randint(10,60)
         print 'sleeping for ' + str(sleep_time)
         time.sleep(sleep_time)
     
     for flight in flights:
-        curises = session.query(Cruise).filter_by(date=flight[1], depart=flight[3])
+        curises = session.query(Cruise).filter_by(date=flight[3], depart=p.a_code[flight[2]])
         for cruise in curises:
+            if flight[1] == 'SFO':
+                cruise.cal = flight[0]
+            else:
+                cruise.can = flight[0]
+            session.add(cruise)
+            session.commit()
 
 def get_flights(url, flights):
     if 'linux' in sys.platform:
