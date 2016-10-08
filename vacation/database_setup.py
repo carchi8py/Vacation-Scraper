@@ -15,14 +15,8 @@ class Cruise(Base):
     depart = Column(String(250))
     nights = Column(Integer)
     price = Column(Integer)
-    
-class Flight(Base):
-    __tablename__ = 'cruise'
-    id = Column(Integer, primary_key=True)
-    price = Column(Integer)
-    start = Column(String(250))
-    cruise_id = Column(Integer, ForeignKey('cruise.id'))
-    cruise = relationship(Cruise)
+    cal = Column(Integer, default = 0)
+    can = Column(Integer, default = 0)
 
 engine = create_engine('sqlite:///curise.db')
 Base.metadata.create_all(engine)

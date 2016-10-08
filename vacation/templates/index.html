@@ -8,7 +8,8 @@
 		<td><b>Port</b></td>
 		<td><b>Days</b></td>
 		<td><b>Price</b></td>
-		<td><b>Price per day</b></td>
+		<td><b>SFO flight </b><td>
+		<td><b>YXE Flight</b><td>
 		</tr>
 		{% for cruise in curises %}
 		<tr>
@@ -18,7 +19,8 @@
 		<td>{{cruise.depart}}</td>
 		<td>{{cruise.nights}}</td>
 		<td>{{cruise.price}}</td>
-		<td>{{cruise.price/cruise.nights}}</td>
+		<td>{{cruise.cal}}</td>
+		<td>{{cruise.can}}</td>
 		</tr>
 		{% endfor %}
 	</body>
