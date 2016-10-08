@@ -1,18 +1,42 @@
 import requests
+from datetime import datetime
+from decimal import Decimal
+from re import sub
 from bs4 import BeautifulSoup
 
 #import our data file
 import data.cruise as c
 
-import sys
+#import the database
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from database_setup import Base, Cruise
 
+engine = create_engine('sqlite:///curise.db')
+Base.metadata.bind = engine
+
+DBSession = sessionmaker(bind=engine)
+session = DBSession()
+
+import sys
 
 def main():
     urls = create_urls()
     cruises = []
     for url in urls:
         cruises = get_cruises(url, cruises)
-    print len(cruises)
+    for cruise in cruises:
+        date_string = cruise['date']
+        date_object = datetime.strptime(date_string, '%b %d, %Y')
+        value = Decimal(sub(r'[^\d.]', '', cruise['price']))
+        new_cruise = Cruise(date = date_object.date(),
+                            line = cruise['line'],
+                            ship = cruise['ship'],
+                            depart = cruise['depart'],
+                            nights = int(cruise['nights']),
+                            price = value)
+        session.add(new_cruise)
+        session.commit()
         
 
 def create_urls():
@@ -59,7 +83,7 @@ def get_cruise_data(cruise):
     cruise_data['depart'] = data_col[4].text
     cruise_data['nights'] = data_col[5].text
     cruise_data['price'] = data_col[6].text
-    return cruise
+    return cruise_data
 
 if __name__ == '__main__':
     main()

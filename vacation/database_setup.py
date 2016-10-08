@@ -8,8 +8,9 @@ Base = declarative_base()
 
 class Cruise(Base):
     __tablename__ = 'cruise'
-    date = Column(Date, nullable = False, primary_key=True)
-    line = Column(String(250), nullable = False, primary_key=True)
+    id = Column(Integer, primary_key=True)
+    date = Column(Date, nullable = False)
+    line = Column(String(250), nullable = False)
     ship = Column(String(250))
     depart = Column(String(250))
     nights = Column(Integer)
