@@ -16,6 +16,11 @@ def index():
     curises = session.query(Cruise).order_by(Cruise.date)
     return render_template('index.html', curises = curises)
 
+@app.route('/cheap')
+def cheap():
+    curises = session.query(Cruise).order_by(Cruise.price)
+    return render_template('index.html', curises = curises)    
+
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'
     app.debug = True
