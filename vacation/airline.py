@@ -21,26 +21,26 @@ session = DBSession()
 
 def main():
     urls = create_urls()
-    flights = []
+    urls = list(set(urls))
     
     for url in urls:
         print url
-        flights = get_flights(url, flights)
-        sleep_time = randint(10,60)
-        print 'sleeping for ' + str(sleep_time)
-        time.sleep(sleep_time)
-    
-    for flight in flights:
+        flight = get_flights(url)
         curises = session.query(Cruise).filter_by(date=flight[3], depart=p.a_code[flight[2]])
         for cruise in curises:
             if flight[1] == 'SFO':
-                cruise.cal = flight[0]
+                if cruise.cal == 0 or cruise.cal < 100000000:
+                    cruise.cal = flight[0]
             else:
-                cruise.can = flight[0]
+                if cruise.can == 0 or cruise.can < 100000000:
+                    cruise.can = flight[0]
             session.add(cruise)
             session.commit()
+        sleep_time = randint(10,60)
+        print 'sleeping for ' + str(sleep_time)
+        time.sleep(sleep_time)
 
-def get_flights(url, flights):
+def get_flights(url):
     if 'linux' in sys.platform:
         # start xvfb in case no X is running. Make sure xvfb 
         # is installed, otherwise this won't work!
@@ -71,8 +71,7 @@ def get_flights(url, flights):
         price = int(price[1:])
         if price < lowest_price:
             lowest_price = price
-    flights.append(format_data(lowest_price, url))
-    return flights
+    return format_data(lowest_price, url)
 
 def format_data(lowest_price, url):
     start = url.split(p.url_1)[1].split(p.url_2)[0]
