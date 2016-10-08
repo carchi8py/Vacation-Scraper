@@ -1,0 +1,25 @@
+<html>
+	<body>
+	<table>
+		<tr>
+		<td><b>Date</b></td>
+		<td><b>Line</b></td>
+		<td><b>Ship</b></td>
+		<td><b>Port</b></td>
+		<td><b>Days</b></td>
+		<td><b>Price</b></td>
+		<td><b>Price per day</b></td>
+		</tr>
+		{% for cruise in curises %}
+		<tr>
+		<td>{{cruise.date}}</td>
+		<td>{{cruise.line}}</td>
+		<td>{{cruise.ship}}</td>
+		<td>{{cruise.depart}}</td>
+		<td>{{cruise.nights}}</td>
+		<td>{{cruise.price}}</td>
+		<td>{{cruise.price/cruise.nights}}</td>
+		</tr>
+		{% endfor %}
+	</body>
+</html>
