@@ -78,6 +78,7 @@ def get_cruise_data(cruise):
     cruise_data = {}
     data_col = cruise.find_all('td')
     cruise_data['date'] = data_col[0].text
+    cruise_data['ur'] = data_col[0].find('a', href=True)['href']
     cruise_data['line'] = data_col[1].text
     cruise_data['ship'] = data_col[2].text
     cruise_data['depart'] = data_col[4].text
