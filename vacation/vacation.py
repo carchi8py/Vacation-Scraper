@@ -68,11 +68,19 @@ def get_cruise_details(url):
     all  = soup.findAll("table", {"class": "cruise-itinerary-table"})
     days = all[1].find("tbody").find_all("tr")
     day_count = 1
+    last_date = None
     for day in days:
         data_col = day.find_all('td')
+        cur_date = data_col[0].text
         location = data_col[1].text.split(':')[1]
-        details[day_count] = location
-        day_count += 1
+        if cur_date == last_date:
+            details[day_count-1] += ' ' + location
+        else:
+            details[day_count] = location
+            day_count += 1
+        if last_date is None:
+            last_date = cur_date
+        last_date = cur_date
     while day_count < 16:
         details[day_count] = 'X'
         day_count += 1
