@@ -3,6 +3,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	 <script src="{{ url_for('static', filename='jquery.tablesorter.min.js') }}"></script>
 	<body>
+	<input type="text" id="search" placeholder="  live search"></input>
 	<table border=1 id="myTable" class="tablesorter">
 		<thead>
 		<tr>
@@ -68,6 +69,28 @@
         $("#myTable").tablesorter(); 
     } 
 ); 
+</script>
+<script>
+$("#search").on("keyup", function() {
+    var value = $(this).val();
+
+    $("table tr").each(function(index) {
+        if (index !== 0) {
+
+            $row = $(this);
+
+            var id = $row.find("td").text();
+            console.log(id.indexOf(value));
+
+            if (id.toLowerCase().indexOf(value.toLowerCase()) == -1) {
+                $row.hide();
+            }
+            else {
+                $row.show();
+            }
+        }
+    });
+});
 </script>
 	</body>
 </html>
