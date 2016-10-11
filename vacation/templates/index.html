@@ -1,31 +1,37 @@
 <html>
+	<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	 <script src="{{ url_for('static', filename='jquery.tablesorter.min.js') }}"></script>
 	<body>
-	<table border=1>
+	<table border=1 id="myTable" class="tablesorter">
+		<thead>
 		<tr>
-		<td><b>Date</b></td>
-		<td><b>Line</b></td>
-		<td><b>Ship</b></td>
-		<td><b>Port</b></td>
-		<td><b>Days</b></td>
-		<td><b>Price</b></td>
-		<td><b>SFO flight </b></td>
-		<td><b>YXE Flight</b></td>
-		<td><b>day1</b></td>
-		<td><b>day2</b></td>
-		<td><b>day3</b></td>
-		<td><b>day4</b></td>
-		<td><b>day5</b></td>
-		<td><b>day6</b></td>
-		<td><b>day7</b></td>
-		<td><b>day8</b></td>
-		<td><b>day9</b></td>
-		<td><b>day10</b></td>
-		<td><b>day11</b></td>
-		<td><b>day12</b></td>
-		<td><b>day13</b></td>
-		<td><b>day14</b></td>
-		<td><b>day15</b></td>
+		<th><b>Date</b></th>
+		<th><b>Line</b></th>
+		<th><b>Ship</b></th>
+		<th><b>Port</b></th>
+		<th><b>Days</b></th>
+		<th><b>Price</b></th>
+		<th><b>SFO flight </b></th>
+		<th><b>YXE Flight</b></th>
+		<th><b>day1</b></th>
+		<th><b>day2</b></th>
+		<th><b>day3</b></th>
+		<th><b>day4</b></th>
+		<th><b>day5</b></th>
+		<th><b>day6</b></th>
+		<th><b>day7</b></th>
+		<th><b>day8</b></th>
+		<th><b>day9</b></th>
+		<th><b>day10</b></th>
+		<th><b>day11</b></th>
+		<th><b>day12</b></th>
+		<th><b>day13</b></th>
+		<th><b>day14</b></th>
+		<th><b>day15</b></th>
+		</thead>
 		</tr>
+		<tbody>
 		{% for cruise in curises %}
 		<tr>
 		<td><a href="{{cruise.url}}">{{cruise.date}}</a></td>
@@ -53,5 +59,13 @@
 		<td>{{cruise.day15}}</td>
 		</tr>
 		{% endfor %}
+		</tbody>
+		<script>
+		$(document).ready(function() 
+    { 
+        $("#myTable").tablesorter(); 
+    } 
+); 
+</script>
 	</body>
 </html>
