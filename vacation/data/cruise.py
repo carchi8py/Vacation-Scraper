@@ -15,3 +15,6 @@ url_1 = "https://cruises.affordabletours.com/search/advanced_search/?destination
 url_2 = "&departuredate="
 url_3 = '&departureday=&cruiseline1=&numnights=0&dport1='
 url_4 = '&resident='
+
+#details url
+url_details = 'https://cruises.affordabletours.com'

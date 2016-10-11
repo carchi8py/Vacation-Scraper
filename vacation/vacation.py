@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 
 #import our data file
 import data.cruise as c
+import time
 
 #import the database
 from sqlalchemy import create_engine
@@ -29,15 +30,54 @@ def main():
         date_string = cruise['date']
         date_object = datetime.strptime(date_string, '%b %d, %Y')
         value = int(Decimal(sub(r'[^\d.]', '', cruise['price'])))
+        #Now that we have our cruise url we want to open them and see the ports
+        details = get_cruise_details(c.url_details + cruise['url'])
+        
         new_cruise = Cruise(date = date_object.date(),
                             line = cruise['line'],
+                            url = c.url_details + cruise['url'],
                             ship = cruise['ship'],
                             depart = cruise['depart'],
                             nights = int(cruise['nights']),
-                            price = value)
+                            price = value,
+                            day1 = details[1],
+                            day2 = details[2],
+                            day3 = details[3],
+                            day4 = details[4],
+                            day5 = details[5],
+                            day6 = details[6],
+                            day7 = details[7],
+                            day8 = details[8],
+                            day9 = details[9],
+                            day10 = details[10],
+                            day11 = details[11],
+                            day12 = details[12],
+                            day13 = details[13],
+                            day14 = details[14],
+                            day15 = details[15])
         session.add(new_cruise)
         session.commit()
-        
+        print 'Curise added'
+        time.sleep(10)
+
+def get_cruise_details(url):
+    details = {}
+    r = requests.get(url)
+    c = r.content
+    soup = BeautifulSoup(c, "html.parser")
+    all  = soup.findAll("table", {"class": "cruise-itinerary-table"})
+    days = all[1].find("tbody").find_all("tr")
+    day_count = 1
+    for day in days:
+        data_col = day.find_all('td')
+        location = data_col[1].text.split(':')[1]
+        details[day_count] = location
+        day_count += 1
+    while day_count < 16:
+        details[day_count] = 'X'
+        day_count += 1
+    return details
+     
 
 def create_urls():
     """
@@ -78,7 +118,7 @@ def get_cruise_data(cruise):
     cruise_data = {}
     data_col = cruise.find_all('td')
     cruise_data['date'] = data_col[0].text
-    cruise_data['ur'] = data_col[0].find('a', href=True)['href']
+    cruise_data['url'] = data_col[0].find('a', href=True)['href']
     cruise_data['line'] = data_col[1].text
     cruise_data['ship'] = data_col[2].text
     cruise_data['depart'] = data_col[4].text

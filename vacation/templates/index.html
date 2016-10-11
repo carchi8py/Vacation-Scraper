@@ -8,12 +8,27 @@
 		<td><b>Port</b></td>
 		<td><b>Days</b></td>
 		<td><b>Price</b></td>
-		<td><b>SFO flight </b><td>
-		<td><b>YXE Flight</b><td>
+		<td><b>SFO flight </b></td>
+		<td><b>YXE Flight</b></td>
+		<td><b>day1</b></td>
+		<td><b>day2</b></td>
+		<td><b>day3</b></td>
+		<td><b>day4</b></td>
+		<td><b>day5</b></td>
+		<td><b>day6</b></td>
+		<td><b>day7</b></td>
+		<td><b>day8</b></td>
+		<td><b>day9</b></td>
+		<td><b>day10</b></td>
+		<td><b>day11</b></td>
+		<td><b>day12</b></td>
+		<td><b>day13</b></td>
+		<td><b>day14</b></td>
+		<td><b>day15</b></td>
 		</tr>
 		{% for cruise in curises %}
 		<tr>
-		<td>{{cruise.date}}</td>
+		<td><a href="{{cruise.url}}">{{cruise.date}}</a></td>
 		<td>{{cruise.line}}</td>
 		<td>{{cruise.ship}}</td>
 		<td>{{cruise.depart}}</td>
@@ -21,6 +36,21 @@
 		<td>{{cruise.price}}</td>
 		<td>{{cruise.cal}}</td>
 		<td>{{cruise.can}}</td>
+		<td>{{cruise.day1}}</td>
+		<td>{{cruise.day2}}</td>
+		<td>{{cruise.day3}}</td>
+		<td>{{cruise.day4}}</td>
+		<td>{{cruise.day5}}</td>
+		<td>{{cruise.day6}}</td>
+		<td>{{cruise.day7}}</td>
+		<td>{{cruise.day8}}</td>
+		<td>{{cruise.day9}}</td>
+		<td>{{cruise.day10}}</td>
+		<td>{{cruise.day11}}</td>
+		<td>{{cruise.day12}}</td>
+		<td>{{cruise.day13}}</td>
+		<td>{{cruise.day14}}</td>
+		<td>{{cruise.day15}}</td>
 		</tr>
 		{% endfor %}
 	</body>
